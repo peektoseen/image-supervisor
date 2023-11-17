@@ -40,7 +40,7 @@ services:
   php-composer:
     <<: *php-defaults
     container_name: image-supervisor-php-composer
-    command: ['composer', 'install']
+    command: ['/usr/local/bin/composer', 'install']
     restart: on-failure
 
   postgres:
