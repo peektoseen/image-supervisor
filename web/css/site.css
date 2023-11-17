@@ -3,6 +3,10 @@ main > .container {
     padding: 0 15px 20px;
 }
 
+.container .table{
+    background: #eaeaea;
+}
+
 .not-set {
     color: #c55;
     font-style: italic;
@@ -165,4 +169,3 @@ h1 {
 .pagination li.disabled {
     opacity: 0.5;
 }
-
