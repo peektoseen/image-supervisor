@@ -2,7 +2,7 @@ $(function () {
 
     $('.js-moderate-btn').on('click', function (event) {
         $(".loading-spinner").show();
-        $(".js-moderate-btn").hide();
+        $(".js-moderate-btn,.lead").hide();
         $.post('/api', {
             action: $(event.target).data('action'),
             url: $('.js-image').attr('src'),
