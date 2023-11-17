@@ -1,0 +1,50 @@
+version: '3'
+
+x-php-defaults: &php-defaults
+  depends_on:
+     postgres :
+       condition: service_healthy
+  build: ./php
+  volumes:
+    - ~/.composer-docker/cache:/root/.composer/cache:delegated
+    - ../:/app:delegated
+  env_file:
+    - ../.env
+  environment:
+    - POSTGRES_DB_NAME=postgres
+    - POSTGRES_USER=postgres
+    - POSTGRES_HOST=postgres
+
+services:
+
+  php:
+    <<: *php-defaults
+    build: ./php
+    ports:
+      - '80:80'
+    restart: always
+
+  # php container for migrations
+  php-migrations:
+    <<: *php-defaults
+    command: ['/path/to/php', 'yii', 'migrate/up']
+    restart: on-failure
+
+
+  postgres:
+    image: postgres:alpine
+    volumes:
+      - db:/var/lib/postgresql/data
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - POSTGRES_DB_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db:
