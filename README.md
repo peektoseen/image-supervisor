@@ -4,9 +4,9 @@
 Project for moderate pictures.
 
 ## Install
-
-For deploy you can use:
 ```
+git clone git clone  git@github.com:peektoseen/image-supervisor.git 
+cd image-supervisor
 ./deploy.sh
 ```
 
