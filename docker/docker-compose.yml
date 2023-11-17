@@ -19,6 +19,7 @@ services:
 
   php:
     <<: *php-defaults
+    container_name: image-supervisor-php
     build: ./php
     ports:
       - '80:80'
@@ -27,12 +28,14 @@ services:
   # php container for migrations
   php-migrations:
     <<: *php-defaults
+    container_name: image-supervisor-php-migrations
     command: ['/path/to/php', 'yii', 'migrate/up']
     restart: on-failure
 
 
   postgres:
     image: postgres:alpine
+    container_name: image-supervisor-postgres
     volumes:
       - db:/var/lib/postgresql/data
       - "/etc/localtime:/etc/localtime:ro"

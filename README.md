@@ -26,6 +26,6 @@ You can override it in **ADMIN_TOKEN** environment variable.
 * For parameters in moderation request to api used two parameters: url and id. Theoretically - we can use url for extract id, but not always url may contain plain id, and for some sources may be need transformation from url to integer id. 
 * You can easily add new sources type, for it, you need add two new classes in `./components` directory.
 
-## Next versions backlog
+## Backlog for next versions
 * Image preload. Preload images before click on button
 * Remove bootstrap dependency.

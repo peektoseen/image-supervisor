@@ -12,11 +12,10 @@ COOKIE_VALIDATION_KEY=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c "$length")
 echo "COOKIE_VALIDATION_KEY=$COOKIE_VALIDATION_KEY" >> .env
 
 echo "Start docker-compose services..."
-cd ./docker
-docker-compose up -d
+docker-compose -f ./docker/docker-compose.yml up -d
 #docker-compose exec php composer install
 
 echo "Migrate database..."
-docker-compose exec php yii migrate --interactive=0
+docker-compose -f ./docker/docker-compose.yml  exec php yii migrate --interactive=0
 
 echo "Done!"
