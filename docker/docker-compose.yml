@@ -24,14 +24,24 @@ services:
     ports:
       - '80:80'
     restart: always
+    depends_on:
+      - php-migrations
+      - php-composer
 
   # php container for migrations
   php-migrations:
     <<: *php-defaults
     container_name: image-supervisor-php-migrations
-    command: ['/path/to/php', 'yii', 'migrate/up']
+    command: ['php', 'yii', 'migrate/up']
     restart: on-failure
+    depends_on:
+      - php-composer
 
+  php-composer:
+    <<: *php-defaults
+    container_name: image-supervisor-php-composer
+    command: ['composer', 'install']
+    restart: on-failure
 
   postgres:
     image: postgres:alpine
