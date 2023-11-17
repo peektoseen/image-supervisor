@@ -63,6 +63,26 @@ class PicsumImageSource implements ImageSourceInterface
      */
     private function getNextSourceId(): int
     {
-        return array_rand(Image::findRandomUnusedSourceIds());
+        $notUsedIds = $this->findRandomUnusedSourceIds();
+        return (int) $notUsedIds[array_rand($notUsedIds)];
+    }
+
+    /**
+     * Generate random source ids not used yet
+     * @param $upperBound
+     * @return array
+     */
+    private  function findRandomUnusedSourceIds($upperBound = 1000): array
+    {
+        $subQuery = (new Query())
+            ->select('source_id')
+            ->from(Image::tableName());
+        return (new Query())
+            ->select(['trunc((random() * (:upperBound - 1)) + 1)'])
+            ->from(['gs' => "generate_series(1, $upperBound)"])
+            ->where(['NOT IN', 'trunc((random() * (:upperBound - 1)) + 1)', $subQuery])
+            ->params([':upperBound' => $upperBound])
+            ->limit(100)
+            ->column();
     }
 }

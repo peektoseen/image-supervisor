@@ -54,18 +54,5 @@ class Image extends ActiveRecord
 
     // Assuming you have the necessary rules and configurations for the Image model
 
-    public static function findRandomUnusedSourceIds($upperBound = 1000): array
-    {
-        $subQuery = (new Query())
-            ->select('source_id')
-            ->from(self::tableName());
 
-        return (new Query())
-            ->select(['trunc((random() * (:upperBound - 1)) + 1)'])
-            ->from(['gs' => "generate_series(1, $upperBound)"])
-            ->where(['NOT IN', 'trunc((random() * (:upperBound - 1)) + 1)', $subQuery])
-            ->params([':upperBound' => $upperBound])
-            ->limit(100)
-            ->column();
-    }
 }
