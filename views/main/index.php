@@ -23,10 +23,10 @@ $this->title = 'Image Supervisor';
 
             <div class="row justify-content-center">
 
-                <a class="col-sm-3 btn m-1 ml-2 btn-lg btn-secondary btn-lg js-moderate-btn" href="javascript:void(0)"
+                <a class="col-sm-3 btn m-1 ml-2 btn-lg btn-secondary btn-lg js-moderate-btn hidden" href="javascript:void(0)"
                    data-source-id="<?=$source_id?>" data-action="<?=Image::DENIED?>"><?=Yii::t('app', 'Deny');?></a>
 
-                <a class="col-sm-3 btn m-1 btn-lg btn-primary btn-lg js-moderate-btn" href="javascript:void(0)"
+                <a class="col-sm-3 btn m-1 btn-lg btn-primary btn-lg js-moderate-btn hidden" href="javascript:void(0)"
                    data-source-id="<?=$source_id?>" data-action="<?=Image::APPROVED?>"><?=Yii::t('app', 'Approve');?></a>
 
             </div>

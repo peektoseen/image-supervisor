@@ -63,13 +63,6 @@ class PicsumImageSource implements ImageSourceInterface
      */
     private function getNextSourceId(): int
     {
-        return (new Query())
-            ->select(['COALESCE(MIN(source_id + 1), 1)'])
-            ->from(['t' => Image::tableName()])
-            ->where(['NOT EXISTS', (new Query())->select('*')->from(['t1' => Image::tableName()])
-                ->where(['t1.source_id' => new Expression('t.source_id + 1')])])
-            ->orderBy(new Expression('RANDOM()'))
-            ->limit(100) // Limit to 100 records
-            ->scalar();
+        return array_rand(Image::findRandomUnusedSourceIds());
     }
 }

@@ -28,13 +28,13 @@ class ApiController extends Controller
     public function actionModerate(): array
     {
         /** @var Image $image */
-        $source_id = Yii::$app->request->post('source_id');
         $url = Yii::$app->request->post('url');
         /** @var   ImageSourceFactoryInterface  $imageSourceFactory */
         $imageSourceFactory = Yii::$app->imageSourceFactory;
         $imageSource = $imageSourceFactory->createImageSource($url);
+        $source_id = $imageSource->getSourceImageId();
         $image = Image::find()->where(['source_id' => $source_id])->one();
-        if(!$image){
+        if(!$image && $source_id){
             $image = new Image();
             $image->source_id =  $imageSource->getSourceImageId();
             $image->url = $url;
@@ -49,12 +49,21 @@ class ApiController extends Controller
             }
         }
 
+        return [
+            'url' => $this->getNextImageUrl()
+        ];
+    }
+
+
+    /**
+     * In answer to user - return next image url without additional web request
+     * @return string
+     */
+    private function getNextImageUrl(): string
+    {
+        // generate next image url
         $imageSourceFactory = Yii::$app->imageSourceFactory;
         $imageSource = $imageSourceFactory->createImageSource();
-        $imageUrl = $imageSource->getImageUrl();
-
-        return [
-            'url' => $imageUrl
-        ];
+        return $imageSource->getImageUrl();
     }
 }
