@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'postgresql:host=postgres;dbname=yii2basic',
-    'username' => env('DB_USER'),
-    'password' => env('DB_PASSWORD'),
+    'dsn' => 'pgsql:host=' . getenv('POSTGRES_HOST') . ';dbname=' . getenv('POSTGRES_DB_NAME'),
+    'username' => getenv('POSTGRES_USER'),
+    'password' => '',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)

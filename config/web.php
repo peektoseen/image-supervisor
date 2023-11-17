@@ -1,10 +1,13 @@
 <?php
 
+use yii\symfonymailer\Mailer;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -12,9 +15,12 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'imageSourceFactory' => [
+            'class' => 'app\components\picsum\PicsumImageSourceFactory',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '5PtDrGpULtoXpm-zNSLb88So-lbk-1ZX',
+            'cookieValidationKey' => getenv('COOKIE_VALIDATION_KEY'),
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -27,7 +33,7 @@ $config = [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-            'class' => \yii\symfonymailer\Mailer::class,
+            'class' => Mailer::class,
             'viewPath' => '@app/mail',
             // send all mails to a file by default.
             'useFileTransport' => true,
@@ -42,14 +48,18 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/' => 'main/index',
+                '/api' => 'api/moderate',
+                '/error' => 'index/error',
+                '/admin' => 'admin/index',
+                '/admin/delete' => 'admin/delete',
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];
