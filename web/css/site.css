@@ -129,11 +129,6 @@ h1 {
     animation: spin 1s linear infinite;
 }
 
-.actual-image {
-    object-fit: cover;
-    display: none; /* Initially hide the actual image */
-}
-
 /* Keyframes for the loading spinner animation */
 @keyframes spin {
     0% {

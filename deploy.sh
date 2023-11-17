@@ -19,16 +19,19 @@ length=32
 COOKIE_VALIDATION_KEY=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c "$length")
 echo "COOKIE_VALIDATION_KEY=$COOKIE_VALIDATION_KEY" >> .env
 
-echo "Start docker-compose services..."
+echo "Build docker-compose services..."
 
 if [ "$(id -u)" -eq 0 ]; then
+  chown -R 33:33 ./
   docker-compose -f ./docker/docker-compose.yml  build  --build-arg EXT_PHP_USER_ID=33 --build-arg EXT_PHP_USER_GID=33
 else
   docker-compose -f ./docker/docker-compose.yml  build  --build-arg EXT_PHP_USER_ID=$(id -u) --build-arg EXT_PHP_USER_GID=$(id -g)
 fi
 
-docker-compose  -f  ./docker/docker-compose.yml up php-composer
+echo "Install composer packages..."
+docker-compose -f  ./docker/docker-compose.yml up php-composer
 
+echo "Start docker compose services..."
 docker-compose -f ./docker/docker-compose.yml up -d
 #docker-compose exec php composer install
 
