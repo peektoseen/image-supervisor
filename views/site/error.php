@@ -6,22 +6,20 @@
 /** @var Exception$exception */
 
 use yii\helpers\Html;
-
+$name = Yii::t('app', 'Error');
 $this->title = $name;
 ?>
 <div class="site-error">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
     <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
+        <?=$exception->getMessage()?>
     </div>
 
     <p>
-        The above error occurred while the Web server was processing your request.
+        <?=\Yii::t('app', 'Please contact us if you think this is a server error. Thank you.')?>
     </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
+
+    <a href="/"><?=\Yii::t('app', 'Back to main page')?></a></a>
 
 </div>
