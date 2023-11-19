@@ -12,6 +12,11 @@ main > .container {
     font-style: italic;
 }
 
+.lead{
+    margin-bottom: -30px;
+    position: relative;
+}
+
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
     content: '';
