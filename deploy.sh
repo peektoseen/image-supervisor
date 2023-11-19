@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Generate .env file..."
-rm .env $2 > /dev/null
+rm .env 2 > /dev/null
 cp .env.example .env
 
 if [ "$(id -u)" -eq 0 ]; then
