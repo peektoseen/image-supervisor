@@ -8,7 +8,6 @@ namespace app\components\picsum;
 
 use app\interfaces\ImageSourceInterface;
 use app\models\Image;
-use yii\db\Expression;
 use yii\db\Query;
 
 /**
@@ -64,16 +63,18 @@ class PicsumImageSource implements ImageSourceInterface
     private function getNextSourceId(): int
     {
         $notUsedIds = $this->findRandomUnusedSourceIds();
+        // get random element from array of not used ids
         return (int) $notUsedIds[array_rand($notUsedIds)];
     }
 
     /**
      * Generate random source ids not used yet
-     * @param $upperBound
+     * @param int $upperBound
      * @return array
      */
-    private  function findRandomUnusedSourceIds($upperBound = 1000): array
+    private  function findRandomUnusedSourceIds(int $upperBound = 1000): array
     {
+        // randomly get next image id for moderation. For it - return random not used 100 ids
         $subQuery = (new Query())
             ->select('source_id')
             ->from(Image::tableName());
