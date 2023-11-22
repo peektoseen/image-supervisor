@@ -3,6 +3,8 @@
 ## About
 Project for moderate pictures.
 
+<img src="./docs/img/index_page.png">
+
 ## Install
 ```
 git clone https://github.com/peektoseen/image-supervisor.git
