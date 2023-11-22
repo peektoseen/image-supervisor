@@ -3,7 +3,7 @@
 ## About
 Project for moderate pictures.
 
-<img src="docs/img/index_page.png" alt="index page">
+<img src="/docs/img/index_page.png" alt="index page">
 
 ## Install
 ```
